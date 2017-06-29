@@ -30,6 +30,16 @@ stripe.createToken({
   }
 });
 ```
+Or
+```javascript
+var otherValidFormat = {
+  "card[number]": '4242424242424242',
+  "card[exp_month]": '12',
+  "card[exp_year]": '18',
+  "card[cvc]": '123'
+}
+stripe.createToken(otherValidFormat);
+```
 - Example return:
 ```javascript
 {

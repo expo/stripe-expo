@@ -1,5 +1,5 @@
 const STRIPE_URL = 'https://api.stripe.com/v1/';
-var formurlencoded = require('form-urlencoded');
+const FORMURLENCODED = require('form-urlencoded');
 
 module.exports = function(key) {
   return {
@@ -10,12 +10,15 @@ module.exports = function(key) {
         let type = keys[index];
         details = _convertDetails(type, details[type]);
       }
-      let token = await _createTokenHelper(details, key);
-      return _parseJSON(token);
+      const TOKEN = await _createTokenHelper(details, key);
+      return _parseJSON(TOKEN);
     }
   }
 }
 
+// Stripe normally only allows for fetch format for the details provided.
+// _findType allows the user to use the node format of the details by
+// figuring out which format/type the details provided are.
 function _findType(details, keys) {
   if (details.card != null) {
     return keys.indexOf("card");
@@ -26,6 +29,8 @@ function _findType(details, keys) {
   } else return false;
 }
 
+// _convertDetails converts and returns the data in the given details
+// to the correct Stripe format for the given type.
 function _convertDetails(type, details) {
   var convertedDetails = {}
   for (var data in details) {
@@ -39,16 +44,12 @@ function _convertDetails(type, details) {
 // _parseJSON finds that string in and returns it as a JSON object, or an error
 // if Stripe threw an error instead.
 function _parseJSON(token) {
-  try {
-    let body = JSON.parse('' + token._bodyInit);
-    return body;
-  } catch (err) {
-    throw err;
-  }
+  let body = JSON.parse('' + token._bodyInit);
+  return body;
 }
 
 function _createTokenHelper(details, key) {
-  var formBody = formurlencoded(details);
+  var formBody = FORMURLENCODED(details);
   return fetch(STRIPE_URL + 'tokens', {
     method: 'post',
     headers: {

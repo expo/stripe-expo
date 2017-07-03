@@ -30,16 +30,6 @@ stripe.createToken({
   }
 });
 ```
-Or
-```javascript
-var otherValidFormat = {
-  "card[number]": '4242424242424242',
-  "card[exp_month]": '12',
-  "card[exp_year]": '18',
-  "card[cvc]": '123'
-}
-stripe.createToken(otherValidFormat);
-```
 - Example return:
 ```javascript
 {
@@ -162,4 +152,4 @@ Help! I don't know where to find 'YOUR_PUBLISHABLE_STRIPE_API_KEY' ?
 - Make an account on Stripe (if you haven't already) and check out https://dashboard.stripe.com/account/apikeys .
 
 I want to charge a customer with this library. How would I do that?
-- Stripe only allows you to exchange card information for a payment token on the frontend. You should get this token, and then immediately pass it to a backend function that validates it, either by creating a charge, or else by attaching it to a customer. See the [Stripe API](https://stripe.com/docs/api) for more information, and [this helpful blog post](http://www.larryullman.com/2013/01/30/handling-stripe-errors/) for more on handling Stripe errors.
+- Stripe only allows you to exchange card information for a payment token on the frontend. You should get this token, and then immediately pass it to a backend function that validates it, either by creating a charge, or else by attaching it to a customer. See the [Stripe API] (https://stripe.com/docs/api) for more information, and [this helpful blog post] (http://www.larryullman.com/2013/01/30/handling-stripe-errors/) for more on handling Stripe errors.

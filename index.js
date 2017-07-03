@@ -4,14 +4,14 @@ const FORMURLENCODED = require('form-urlencoded');
 module.exports = function(key) {
   return {
     createToken: async function (details) {
-      let keys = Object.keys(details);
-      let index = _findType(details, keys);
+      const keys = Object.keys(details);
+      const index = _findType(details, keys);
       if (index) {
         let type = keys[index];
         details = _convertDetails(type, details[type]);
       }
-      const TOKEN = await _createTokenHelper(details, key);
-      return _parseJSON(TOKEN);
+      const token = await _createTokenHelper(details, key);
+      return _parseJSON(token);
     }
   }
 }
@@ -34,7 +34,7 @@ function _findType(details, keys) {
 function _convertDetails(type, details) {
   var convertedDetails = {}
   for (var data in details) {
-    var string = type + '[' + data + ']';
+    const string = type + '[' + data + ']';
     convertedDetails[string] = details[data];
   }
   return convertedDetails;
@@ -44,12 +44,12 @@ function _convertDetails(type, details) {
 // _parseJSON finds that string in and returns it as a JSON object, or an error
 // if Stripe threw an error instead.
 function _parseJSON(token) {
-  let body = JSON.parse('' + token._bodyInit);
+  const body = JSON.parse('' + token._bodyInit);
   return body;
 }
 
 function _createTokenHelper(details, key) {
-  var formBody = FORMURLENCODED(details);
+  const formBody = FORMURLENCODED(details);
   return fetch(STRIPE_URL + 'tokens', {
     method: 'post',
     headers: {

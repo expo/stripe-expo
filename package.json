@@ -1,0 +1,25 @@
+{
+  "dependencies": {
+    "form-urlencoded": "^1.5.1",
+    "jasmine": "^2.6.0",
+    "jasmine-await": "^0.0.3"
+  },
+  "name": "stripe-expo",
+  "description": "React Native Stripe wrapper that makes using Stripe with React Native easy in iOS/Android.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "jasmine-node spec"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/expo/stripe-expo.git"
+  },
+  "author": "Jeffrey Da",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/expo/stripe-expo/issues"
+  },
+  "homepage": "https://github.com/expo/stripe-expo#readme"
+}

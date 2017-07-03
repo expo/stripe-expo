@@ -1,6 +1,7 @@
 const STRIPE_URL = 'https://api.stripe.com/v1/';
 const FORMURLENCODED = require('form-urlencoded');
 
+
 module.exports = function(key) {
   return {
     createToken: async function (details) {

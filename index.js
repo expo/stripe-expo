@@ -1,57 +1,61 @@
-const STRIPE_URL = 'https://api.stripe.com/v1/';
-const FORMURLENCODED = require('form-urlencoded');
+"use strict";
 
+var stripe_url = 'https://api.stripe.com/v1/';
 
 module.exports = function(key) {
   return {
     createToken: async function (details) {
-      const keys = Object.keys(details);
-      const index = _findType(details, keys);
-      if (index) {
-        let type = keys[index];
-        details = _convertDetails(type, details[type]);
+      if (details.card != null || details.bank_account != null || details.pii != null) {
+        details = _convertDetails(details);
       }
-      const token = await _createTokenHelper(details, key);
+      var token = await _createTokenHelper(details, key);
       return _parseJSON(token);
     }
   }
 }
 
-// Stripe normally only allows for fetch format for the details provided.
-// _findType allows the user to use the node format of the details by
-// figuring out which format/type the details provided are.
-function _findType(details, keys) {
+function _convertDetails(details) {
   if (details.card != null) {
-    return keys.indexOf("card");
+    var type = 'card';
+    var database = Object.entries(details.card);
   } else if (details.bank_account != null) {
-    return keys.indexOf("bank_account");
-  } else if (details.pii != null) {
-    return keys.indexOf("pii");
-  } else return false;
-}
-
-// _convertDetails converts and returns the data in the given details
-// to the correct Stripe format for the given type.
-function _convertDetails(type, details) {
+    var type = 'bank_account';
+    var database = Object.entries(details.bank_account);
+  } else {
+    var type = 'pii';
+    var database = Object.entries(details.pii);
+  }
   var convertedDetails = {}
-  for (var data in details) {
-    const string = type + '[' + data + ']';
-    convertedDetails[string] = details[data];
+  for (var data in database) {
+    var string = type + '[' + database[data][0] + ']';
+    convertedDetails[string] = database[data][1];
   }
   return convertedDetails;
 }
 
-// Stripe gives a JSON object with the token object embedded as a JSON string.
-// _parseJSON finds that string in and returns it as a JSON object, or an error
-// if Stripe threw an error instead.
 function _parseJSON(token) {
-  const body = JSON.parse('' + token._bodyInit);
-  return body;
+  try {
+    let body = JSON.parse('' + token._bodyInit);
+    return body;
+  } catch (err) {
+    return err;
+  }
+}
+
+function _makeBody(details) {
+  var formBody = [];
+  for (var property in details) {
+    var encodedKey = encodeURIComponent(property);
+    var encodedValue = encodeURIComponent(details[property]);
+    formBody.push(encodedKey + "=" + encodedValue);
+  }
+  return formBody.join("&");
 }
 
 function _createTokenHelper(details, key) {
-  const formBody = FORMURLENCODED(details);
-  return fetch(STRIPE_URL + 'tokens', {
+  var formBody = _makeBody(details);
+
+  return fetch(stripe_url + 'tokens', {
     method: 'post',
     headers: {
       'Accept': 'application/json',

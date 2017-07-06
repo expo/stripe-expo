@@ -1,18 +1,20 @@
 const STRIPE_URL = 'https://api.stripe.com/v1/';
 const FORMURLENCODED = require('form-urlencoded');
 
-
 module.exports = function(key) {
   return {
     createToken: async function (details) {
       const keys = Object.keys(details);
       const index = _findType(details, keys);
-      if (index) {
+      var token;
+      if (index == 0) {
         let type = keys[index];
-        details = _convertDetails(type, details[type]);
+        var newDetails = _convertDetails(type, details[type]);
+        token = await _createTokenHelper(newDetails, key);
+      } else {
+        token = await _createTokenHelper(details, key);
       }
-      const token = await _createTokenHelper(details, key);
-      return _parseJSON(token);
+      return token;
     }
   }
 }
@@ -45,7 +47,9 @@ function _convertDetails(type, details) {
 // _parseJSON finds that string in and returns it as a JSON object, or an error
 // if Stripe threw an error instead.
 function _parseJSON(token) {
+  console.log(token);
   const body = JSON.parse('' + token._bodyInit);
+  console.log(body);
   return body;
 }
 

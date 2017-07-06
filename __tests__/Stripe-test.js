@@ -1,7 +1,6 @@
+const wrap = require('jasmine-promise-wrapper');
 var stripe = require('../index.js')('pk_test_YRjUHSZfJza9RsuNDx9s6e5V');
-var async = require("jasmine-await");
-var it = async.it;
-var await = async.await;
+var fetchMock = require('fetch-mock');
 
 describe("card token creation with valid card details", function () {
   var cardDetails = {
@@ -11,10 +10,11 @@ describe("card token creation with valid card details", function () {
     "card[cvc]": '999',
     "card[name]": 'Steve Jobs'
   };
-
-  it ('should create a valid token', () => {
-    var token = await(stripe.createToken(cardDetails));
-    expect(token.card.object).toBe('card');
+  fetchMock.mock('*', { });
+  wrap.it ('should receive a valid response', async () => {
+    var token = await stripe.createToken(cardDetails);
+    expect(token.url).toBe('https://api.stripe.com/v1/tokens');
+    expect(token.statusText).toBe('OK');
   });
 });
 
@@ -30,10 +30,11 @@ describe("bank account token creation with valid bank details", function () {
     }
   };
 
-
-  it ('should create a valid token', () => {
-    var token = await(stripe.createToken(bankDetails));
-    expect(token.bank_account.object).toBe('bank_account');
+  fetchMock.mock('*', { });
+  wrap.it ('should receive a valid response', async () => {
+    var token = await stripe.createToken(bankDetails);
+    expect(token.url).toBe('https://api.stripe.com/v1/tokens');
+    expect(token.statusText).toBe('OK');
   });
 });
 
@@ -44,10 +45,11 @@ describe("PII token creation with valid PII details", function () {
     }
   };
 
-
-  it ('should create a valid token', () => {
-    var token = await(stripe.createToken(piiDetails));
-    expect(token.type).toBe('pii');
+  fetchMock.mock('*', { });
+  wrap.it ('should receive a valid response', async () => {
+    var token = await stripe.createToken(piiDetails);
+    expect(token.url).toBe('https://api.stripe.com/v1/tokens');
+    expect(token.statusText).toBe('OK');
   });
 });
 
@@ -60,9 +62,9 @@ describe("invalid details", function () {
     "card[name]": 'Steve Jobs'
   };
 
-
-  it ('should throw an error', () => {
-    var token = await(stripe.createToken(piiDetails));
-    expect(token.error.type).toBe('card_error');
+  fetchMock.mock('*', { });
+  wrap.it ('should throw an error', async () => {
+    var token = await stripe.createToken(invalidCard);
+    expect(token.url).toBe('https://api.stripe.com/v1/tokens');
   });
 });

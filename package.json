@@ -7,11 +7,16 @@
   "version": "1.0.0",
   "main": "index.js",
   "devDependencies": {
-    "jasmine": "^2.6.0",
-    "jasmine-await": "^0.0.3"
+    "fetch-mock": "^5.12.1",
+    "jasmine-promise-wrapper": "^0.0.3",
+    "jest-expo": "^18.0.0",
+    "react-native": "^0.46.0"
   },
   "scripts": {
-    "test": "jasmine-node spec"
+    "test": "node_modules/jest/bin/jest.js"
+  },
+  "jest": {
+    "preset": "jest-expo"
   },
   "repository": {
     "type": "git",

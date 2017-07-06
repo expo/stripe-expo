@@ -1,4 +1,5 @@
-# Stripe
+# Stripe 
+https://travis-ci.org/expo/stripe-expo.svg?branch=master
 
 React Native Stripe wrapper that makes using Stripe with React Native easy in iOS/Android.
 

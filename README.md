@@ -1,4 +1,4 @@
-# Stripe 
+# Stripe Express
 [![Build Status](https://travis-ci.org/expo/stripe-expo.svg?branch=master)](https://travis-ci.org/expo/stripe-expo)
 
 React Native Stripe wrapper that makes using Stripe with React Native easy in iOS/Android.
@@ -13,6 +13,16 @@ React Native Stripe wrapper that makes using Stripe with React Native easy in iO
 
 - Stripe only allows an exchange of card information/bank account information/PII in the front end. This does not verify the payment information, it just checks that it looks reasonable (ex. the expiration date is in the future, the credit card number has the right format). You should take this token and immediately pass it to a backend function that validates it (ex. by creating a charge or assigning it to a customer)
 - As a corollary, you should only embed your Stripe PUBLISHABLE token in a frontend app.
+
+## Installation
+
+```javascript
+npm install stripe-express --save
+```
+Or
+```javascript
+yarn add stripe-express
+```
 
 ## Creating a token
 

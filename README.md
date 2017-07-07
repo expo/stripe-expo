@@ -17,11 +17,11 @@ React Native Stripe wrapper that makes using Stripe with React Native easy in iO
 ## Installation
 
 ```javascript
-npm install stripe-express --save
+npm install stripe-client --save
 ```
 Or
 ```javascript
-yarn add stripe-express
+yarn add stripe-client
 ```
 
 ## Creating a token
@@ -93,7 +93,7 @@ stripe.createToken(otherValidFormat);
 ### Creating a credit card token
 ```javascript
 import React from 'react';
-var stripe = require('stripe')('YOUR_PUBLISHABLE_STRIPE_API_KEY');
+var stripe = require('stripe-client')('YOUR_PUBLISHABLE_STRIPE_API_KEY');
 
 var information = {
   card: {
@@ -119,7 +119,7 @@ export class App extends React.Component {
 ### Creating a bank account token
 ```javascript
 import React from 'react';
-var stripe = require('stripe')('YOUR_PUBLISHABLE_STRIPE_API_KEY');
+var stripe = require('stripe-client')('YOUR_PUBLISHABLE_STRIPE_API_KEY');
 
 var information = {
   bank_account: {
@@ -145,7 +145,7 @@ export class App extends React.Component {
 ```
 ### Creating a PII token
 ```javascript
-var stripe = require('stripe')('YOUR_PUBLISHABLE_STRIPE_API_KEY');
+var stripe = require('stripe-client')('YOUR_PUBLISHABLE_STRIPE_API_KEY');
 
 var information = {
   pii: {

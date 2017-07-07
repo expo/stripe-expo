@@ -1,4 +1,4 @@
-# Stripe Express
+# Stripe Client
 [![Build Status](https://travis-ci.org/expo/stripe-expo.svg?branch=master)](https://travis-ci.org/expo/stripe-expo)
 
 React Native Stripe wrapper that makes using Stripe with React Native easy in iOS/Android.

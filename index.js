@@ -14,7 +14,7 @@ module.exports = function(key) {
       } else {
         token = await _createTokenHelper(details, key);
       }
-      return token;
+      return _parseJSON(token);
     }
   }
 }
@@ -45,12 +45,13 @@ function _convertDetails(type, details) {
 
 // Stripe gives a JSON object with the token object embedded as a JSON string.
 // _parseJSON finds that string in and returns it as a JSON object, or an error
-// if Stripe threw an error instead.
+// if Stripe threw an error instead. If the JSON does not need to be parsed, returns the token.
 function _parseJSON(token) {
-  console.log(token);
-  const body = JSON.parse('' + token._bodyInit);
-  console.log(body);
-  return body;
+  if (token._bodyInit == null) return token
+  else {
+    const body = JSON.parse('' + token._bodyInit);
+    return body;
+  }
 }
 
 function _createTokenHelper(details, key) {

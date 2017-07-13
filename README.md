@@ -1,5 +1,7 @@
-# Stripe Client
+# Stripe Express
 [![Build Status](https://travis-ci.org/expo/stripe-expo.svg?branch=master)](https://travis-ci.org/expo/stripe-expo)
+
+Deprecated: Please use 'stripe-client' instead, it's the updated version of the same package under a different name :)
 
 React Native Stripe wrapper that makes using Stripe with React Native easy in iOS/Android.
 
@@ -17,11 +19,11 @@ React Native Stripe wrapper that makes using Stripe with React Native easy in iO
 ## Installation
 
 ```javascript
-npm install stripe-client --save
+npm install stripe-express --save
 ```
 Or
 ```javascript
-yarn add stripe-client
+yarn add stripe-express
 ```
 
 ## Creating a token
@@ -40,16 +42,6 @@ stripe.createToken({
     "cvc": '123'
   }
 });
-```
-Or
-```javascript
-var otherValidFormat = {
-  "card[number]": '4242424242424242',
-  "card[exp_month]": '12',
-  "card[exp_year]": '18',
-  "card[cvc]": '123'
-}
-stripe.createToken(otherValidFormat);
 ```
 - Example return:
 ```javascript
@@ -93,7 +85,7 @@ stripe.createToken(otherValidFormat);
 ### Creating a credit card token
 ```javascript
 import React from 'react';
-var stripe = require('stripe-client')('YOUR_PUBLISHABLE_STRIPE_API_KEY');
+var stripe = require('stripe-express')('YOUR_PUBLISHABLE_STRIPE_API_KEY');
 
 var information = {
   card: {
@@ -108,7 +100,8 @@ var information = {
 export class App extends React.Component {
   async onPayment() {
     var card = await stripe.createToken(information);
-    console.log(card.id);
+    var token = card.id;
+    // send token to backend for processing
   }
 
   render() {
@@ -119,7 +112,7 @@ export class App extends React.Component {
 ### Creating a bank account token
 ```javascript
 import React from 'react';
-var stripe = require('stripe-client')('YOUR_PUBLISHABLE_STRIPE_API_KEY');
+var stripe = require('stripe-express')('YOUR_PUBLISHABLE_STRIPE_API_KEY');
 
 var information = {
   bank_account: {
@@ -134,8 +127,9 @@ var information = {
 
 export class App extends React.Component {
   async onPayment() {
-    var card = await stripe.createToken(information);
-    console.log(card.id);
+    var bank = await stripe.createToken(information);
+    var token = bank.id;
+    // send token to backend for processing
   }
 
   render() {
@@ -145,7 +139,7 @@ export class App extends React.Component {
 ```
 ### Creating a PII token
 ```javascript
-var stripe = require('stripe-client')('YOUR_PUBLISHABLE_STRIPE_API_KEY');
+var stripe = require('stripe-express')('YOUR_PUBLISHABLE_STRIPE_API_KEY');
 
 var information = {
   pii: {
@@ -155,8 +149,9 @@ var information = {
 
 export class App extends React.Component {
   async onPayment() {
-    var card = await stripe.createToken(information);
-    console.log(card.id);
+    var pii = await stripe.createToken(information);
+    var token = pii.id;
+    // send token to backend for processing
   }
 
   render() {

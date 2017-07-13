@@ -2,7 +2,7 @@
   "dependencies": {
     "form-urlencoded": "^1.5.1"
   },
-  "name": "stripe-client",
+  "name": "stripe-express",
   "description": "React Native Stripe wrapper that makes using Stripe with React Native safe and easy in iOS/Android.",
   "keywords": [
     "stripe",
@@ -15,7 +15,7 @@
     "native",
     "token"
   ],
-  "version": "1.0.5",
+  "version": "1.1.0",
   "main": "index.js",
   "devDependencies": {
     "fetch-mock": "^5.12.1",

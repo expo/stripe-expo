@@ -1,8 +1,6 @@
 # Stripe Express
 [![Build Status](https://travis-ci.org/expo/stripe-expo.svg?branch=master)](https://travis-ci.org/expo/stripe-expo)
 
-Deprecated: Please use 'stripe-client' instead, it's the updated version of the same package under a different name :)
-
 React Native Stripe wrapper that makes using Stripe with React Native easy in iOS/Android.
 
 ## Features

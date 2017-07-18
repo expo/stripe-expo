@@ -15,7 +15,7 @@
     "native",
     "token"
   ],
-  "version": "1.1.1",
+  "version": "1.1.2",
   "main": "index.js",
   "devDependencies": {
     "fetch-mock": "^5.12.1",

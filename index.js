@@ -46,10 +46,11 @@ function _convertDetails(type, details) {
 // Stripe gives a JSON object with the token object embedded as a JSON string.
 // _parseJSON finds that string in and returns it as a JSON object, or an error
 // if Stripe threw an error instead. If the JSON does not need to be parsed, returns the token.
-function _parseJSON(token) {
-  if (token._bodyInit == null) return token
-  else {
-    const body = JSON.parse('' + token._bodyInit);
+async function _parseJSON(token) {
+  if (token._bodyInit == null) {
+    return token;
+  } else {
+    const body = await token.json();
     return body;
   }
 }

@@ -53,6 +53,25 @@ describe("PII token creation with valid PII details", function () {
   });
 });
 
+describe("account token creation with valid account details", function () {
+  var accountDetails = {
+    account: {
+        legal_entity: {
+          first_name: 'Jane',
+          last_name: 'Doe',
+        },
+        tos_shown_and_accepted: true,
+    }
+  };
+
+  fetchMock.mock('*', { });
+  wrap.it ('should receive a valid response', async () => {
+    var token = await stripe.createToken(accountDetails);
+    expect(token.url).toBe('https://api.stripe.com/v1/tokens');
+    expect(token.statusText).toBe('OK');
+  });
+});
+
 describe("invalid details", function () {
   var invalidCard = {
     "card[number]": '4242424242424242',

@@ -1,5 +1,3 @@
-type CreateTokenDetails = {}
-
 type BrandType = 'Visa' | 'American Express' | 'MasterCard' | 'Discover' | 'JCB' | 'Diners Club' | 'Unknown'
 type CheckType = 'pass' | 'fail' | 'unavailable' | 'unchecked'
 type FundingType = 'credit' | 'debit' | 'prepaid' | 'unknown'

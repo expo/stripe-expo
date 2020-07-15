@@ -53,8 +53,8 @@ describe("PII token creation with valid PII details", function () {
   });
 });
 
-describe("account token creation with valid account details", function () {
-  var accountDetails = {
+describe("account token creation with valid account details", () => {
+  let accountDetails = {
     account: {
         legal_entity: {
           first_name: 'Jane',
@@ -66,7 +66,7 @@ describe("account token creation with valid account details", function () {
 
   fetchMock.mock('*', { });
   wrap.it ('should receive a valid response', async () => {
-    var token = await stripe.createToken(accountDetails);
+    let token = await stripe.createToken(accountDetails);
     expect(token.url).toBe('https://api.stripe.com/v1/tokens');
     expect(token.statusText).toBe('OK');
   });

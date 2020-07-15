@@ -53,7 +53,7 @@ describe("PII token creation with valid PII details", function () {
   });
 });
 
-describe("account token creation with valid account details", () => {
+describe('account token creation with valid account details', () => {
   let accountDetails = {
     account: {
         legal_entity: {

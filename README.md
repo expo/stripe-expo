@@ -14,6 +14,20 @@ React Native Stripe wrapper that makes using Stripe with React Native easy in iO
 - Stripe only allows an exchange of card information/bank account information/PII in the front end. This does not verify the payment information, it just checks that it looks reasonable (ex. the expiration date is in the future, the credit card number has the right format). You should take this token and immediately pass it to a backend function that validates it (ex. by creating a charge or assigning it to a customer)
 - As a corollary, you should only embed your Stripe PUBLISHABLE token in a frontend app.
 
+## Strong customer authentication
+
+Since 14 September 2019, it's required in Europe to perform strong customer authentication (generally a 3D Secure workflow where your bank sends you a text message with a code). 
+
+It is possible to do such workflow using this lib:
+- send the card token to your backend
+- create a payment method from the card token, then a payment intent with a returnUrl (that targets your backend) and manual confirmation
+- send the payment intent authentication url to the mobile app
+- launch a webview with that url
+- user performs the auth workflow inside the webview
+- the webview is redirected to your return url
+- detect the webview redirection and check if the intent has been confirmed (with a backend call)
+- ask your backend to confirm the order/intent, close the webview, and show order success screen
+
 ## Installation
 
 ```javascript
